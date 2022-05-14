@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	ppl "github.com/QQuinn03/test/person"
+	ppl "github.com/QQuinn03/test/person1"
 )
 
 func main() {

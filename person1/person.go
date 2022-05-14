@@ -1,4 +1,4 @@
-package person
+package person1
 
 // type person struct {
 // 	todo behavior
