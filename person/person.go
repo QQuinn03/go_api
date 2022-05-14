@@ -1,6 +1,4 @@
-package person1
-
-import "fmt"
+package person
 
 // type person struct {
 // 	todo behavior
@@ -18,6 +16,6 @@ import "fmt"
 // 	}
 // }
 
-func hello() {
-	fmt.Println("hello")
+func Hello() string {
+	return "hello"
 }
