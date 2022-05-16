@@ -2,16 +2,29 @@ package person
 
 import "fmt"
 
-type newPerson struct {
-	name string
+type newConsequence interface {
+	Drink()
+	Eat()
+	Sleep()
+}
+type behaviorConsequence struct {
+	behConse newConsequence
 }
 
-func (p *newPerson) drink() {
+func NewBhavior(nc newConsequence) *behaviorConsequence {
+	return &behaviorConsequence{
+		behConse: nc,
+	}
+}
+func (bc *behaviorConsequence) Drink() {
 	fmt.Println("a person drinks")
+	bc.behConse.Drink()
 }
-func (p *newPerson) eat() {
+func (bc *behaviorConsequence) Eat() {
 	fmt.Println("a person eats")
+	bc.behConse.Eat()
 }
-func (p *newPerson) sleep() {
+func (bc *behaviorConsequence) Sleep() {
 	fmt.Println("a person sleeps")
+	bc.behConse.Sleep()
 }

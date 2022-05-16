@@ -1,16 +1,29 @@
 package bahavior
 
 type personBehavior struct {
-	behaviorInterface behavior
+	behaviorInterface Behavior
 }
 
-type behavior interface {
-	eat()
-	drink()
-	sleep()
+type Behavior interface {
+	Eat()
+	Drink()
+	Sleep()
 }
 
-func NewPerson(be behavior) *personBehavior {
+func (p *personBehavior) Eat() {
+	p.behaviorInterface.Eat()
+
+}
+func (p *personBehavior) Drink() {
+	p.behaviorInterface.Drink()
+
+}
+func (p *personBehavior) Sleep() {
+	p.behaviorInterface.Sleep()
+
+}
+
+func NewBhavior(be Behavior) *personBehavior {
 	return &personBehavior{
 		behaviorInterface: be,
 	}
