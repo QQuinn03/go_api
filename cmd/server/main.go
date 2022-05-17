@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	consequence "github.com/QQuinn03/test/consequence"
-	do "github.com/QQuinn03/test/person"
+	consequence "github.com/QQuinn03/api_toy/consequence"
+	do "github.com/QQuinn03/api_toy/person"
 )
 
 type newWoman struct {
