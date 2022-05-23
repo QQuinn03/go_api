@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:12.2-alpine
+    container_name: "toy-api-databse"
+    ports:
+      - "6688:6688"
+    environment: #environment variables when database start up
+      - POSTGRES_DB=QQgood
+      - POSTREES_USER=QQgood
+      - POSTGRES_PASSWORD=QQgood
+    networks:
+      - fullstack
+    volumes: 
+      - database_postgres:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: "toy-api"
+    environment:
+      DB_USERNAME: "QQgood"
+      DB_PASSWORD: "QQgood"        
+      DB_DB: QQgood"
+      DB_HOST: "db"    # should match db as db service
+      DB_TABLE: "postgres"
+      DB_PORT: "5432"
+      SSL_MODE: "disable"
+    ports:
+      - "8080:8080"  
+    depends_on:
+      - db    
+    networks:
+      - fullstack
+volumes:
+  database_postgres:
+
+networks:
+  fullstack:
+      driver: bridge   
