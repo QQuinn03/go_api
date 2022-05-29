@@ -7,7 +7,7 @@ services:
     ports:
       - "5432:5432"
     environment: #environment variables when database start up
-      - POSTGRES_DB=QQgood
+      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres  #postgresql has default name postgres
       - POSTGRES_PASSWORD=QQgood
     networks:
@@ -21,9 +21,9 @@ services:
     environment:
       DB_USERNAME: "postgres"
       DB_PASSWORD:  "QQgood"      
-      DB_DB: "QQgood"
+      DB_DB: "postgres"
       DB_HOST: "db"    # should match db as db service
-      DB_TABLE:  "QQgood"
+      DB_TABLE:  "postgres"   #this should match "postgres", other wise the table can not be created
       DB_PORT: "5432"
       SSL_MODE: "disable"
     ports:

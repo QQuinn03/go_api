@@ -41,3 +41,5 @@ func (d *Database) Ping(ctx context.Context) error {
 
 //docker exec -it postgres id bash
 //psql -U postgres
+//check table \d+ table name
+//6a2b46dd-5ca3-4a00-9d4e-162f900828d0

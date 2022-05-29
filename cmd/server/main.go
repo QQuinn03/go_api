@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/QQuinn03/api_toy/internal/comment"
-	"github.com/QQuinn03/api_toy/internal/db"
-	httpHandler "github.com/QQuinn03/api_toy/internal/transport/http"
+	"github.com/QQuinn03/go_api/internal/comment"
+	"github.com/QQuinn03/go_api/internal/db"
+	httpHandler "github.com/QQuinn03/go_api/internal/transport/http"
 )
 
 func Run() error {

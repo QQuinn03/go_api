@@ -6,15 +6,16 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/QQuinn03/api_toy/internal/comment"
+	"github.com/QQuinn03/go_api/internal/comment"
 	"github.com/go-playground/validator"
+	"github.com/gorilla/mux"
 )
 
 type CommentService interface {
 	GetComment(context.Context, string) (comment.Comment, error)
 	PostComment(context.Context, comment.Comment) (comment.Comment, error)
-	//GetComment(context.Context, string) (comment.Comment, error)
-	//GetComment(context.Context, string) (comment.Comment, error)
+	UpdateComment(context.Context, string, comment.Comment) (comment.Comment, error)
+	DeleteComment(context.Context, string) error
 }
 type PostCommentRequest struct {
 	Slug   string `json:"slug" validate:"required"`
@@ -24,6 +25,7 @@ type PostCommentRequest struct {
 
 func convertPostCommentToComment(c PostCommentRequest) comment.Comment {
 	return comment.Comment{
+
 		Slug:   c.Slug,
 		Author: c.Author,
 		Body:   c.Body,
@@ -32,6 +34,20 @@ func convertPostCommentToComment(c PostCommentRequest) comment.Comment {
 }
 
 func (h *Handler) GetComment(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	if id == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	cmt, err := h.Service.GetComment(r.Context(), id)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	if err := json.NewEncoder(w).Encode(cmt); err != nil {
+		return
+	}
 
 }
 
@@ -55,6 +71,45 @@ func (h *Handler) PostComment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if err := json.NewEncoder(w).Encode(postedComment); err != nil {
+		panic(err)
+	}
+
+}
+
+func (h *Handler) DeleteComment(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	if id == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	if err := h.Service.DeleteComment(r.Context(), id); err != nil {
+		log.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	// if err := json.NewEncoder(w).Encode("successfully deleted"); err != nil {
+	// 	panic(err)
+	// }
+
+}
+
+func (h *Handler) UpdateComment(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	id := vars["id"]
+	if id == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	var cmt PostCommentRequest
+	json.NewDecoder(r.Body).Decode(&cmt)
+	postCmt := convertPostCommentToComment(cmt)
+
+	_, err := h.Service.UpdateComment(r.Context(), id, postCmt)
+	if err != nil {
 		panic(err)
 	}
 

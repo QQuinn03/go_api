@@ -32,6 +32,8 @@ func (h *Handler) MapRoutes() {
 	})
 	h.Router.HandleFunc("/api/v1/comment/{id}", h.GetComment).Methods("GET")
 	h.Router.HandleFunc("/api/v1/comment", h.PostComment).Methods("POST")
+	h.Router.HandleFunc("/api/v1/comment/{id}", h.DeleteComment).Methods("DELETE")
+	h.Router.HandleFunc("/api/v1/comment/{id}", h.UpdateComment).Methods("PUT")
 
 }
 
