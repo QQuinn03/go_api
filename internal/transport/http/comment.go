@@ -3,6 +3,7 @@ package transport
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -84,15 +85,15 @@ func (h *Handler) DeleteComment(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-
+	fmt.Println(id, "works on handler layer")
 	if err := h.Service.DeleteComment(r.Context(), id); err != nil {
 		log.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	// if err := json.NewEncoder(w).Encode("successfully deleted"); err != nil {
-	// 	panic(err)
-	// }
+	if err := json.NewEncoder(w).Encode("successfully deleted"); err != nil {
+		panic(err)
+	}
 
 }
 

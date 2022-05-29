@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"reflect"
 
 	"github.com/QQuinn03/go_api/internal/comment"
 	uuid "github.com/satori/go.uuid"
@@ -71,9 +72,10 @@ func (d *Database) DeleteComment(ctx context.Context, id string) error {
 	// 	return err
 	// }
 	// return nil
-	_, err := d.Client.NamedQueryContext(ctx, `DELETE FROM comment WHERE id=$1`, id)
+	fmt.Println("hello from data deletion function", reflect.TypeOf(id))
+	_, err := d.Client.ExecContext(ctx, `DELETE FROM comment WHERE id=$1`, id)
 	if err != nil {
-		return fmt.Errorf("failto delete the comment:%v", err)
+		return fmt.Errorf("fail to delete the comment:%v", err)
 
 	}
 	return nil

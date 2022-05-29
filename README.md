@@ -8,4 +8,4 @@ CRUD commends example:
 
   3. UPDATE: curl --location --request PUT 'http://localhost:8080/api/v1/comment/uuid' --header 'Content-Type: application/json' --data-raw '{"slug": "hello", "body": "I updated this comment", "author": "qqllo"}'
 
-  4.
+  4. Delete curl --location --request DELETE 'http://localhost:8080/api/v1/comment/uuid'
